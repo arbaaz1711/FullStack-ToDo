@@ -9,7 +9,14 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import CustomButton from "../components/button/CustomButton";
 import { styled } from "@mui/material";
-import ModalOverlay from "../utils/ModalOverlay";
+import AddTaskModal from "../components/AddTaskModal";
+
+const Wrapper = styled("div")({
+  display: "flex",
+  flexDirection: "column",
+  width: "80%",
+  margin: "auto",
+});
 
 interface Column {
   id: "name" | "description" | "completion" | "action";
@@ -47,12 +54,6 @@ interface Data {
 
 const rows: Data[] = [];
 
-const Wrapper = styled("div")({
-  display: "flex",
-  flexDirection: "column",
-  width: "80%",
-  margin: "auto",
-});
 const TasksList = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -125,7 +126,7 @@ const TasksList = () => {
         />
       </Paper>
       {isShowAddTaskModal && (
-        <ModalOverlay
+        <AddTaskModal
           open={isShowAddTaskModal}
           close={() => setIsShowAddTaskModal(false)}
         />

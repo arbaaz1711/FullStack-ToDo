@@ -1,43 +1,50 @@
-import { Modal, styled, Typography } from "@mui/material";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogTitle from "@mui/material/DialogTitle";
+import { styled } from "@mui/material";
 
-const Wrapper = styled("div")({
-  width: "100%",
+const CancelButton = styled(Button)({
+  textTransform: "none",
+  backgroundColor: "#b4cbe3",
+  color: "white",
 });
-
-const TextContainer = styled("div")({
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  backgroundColor: "grey",
-  border: "2px solid #000",
-  padding: 4,
+const SaveButton = styled(Button)({
+  textTransform: "none",
+  backgroundColor: "#f44336",
+  color: "white",
 });
 
 interface iOverlay {
   open: boolean;
   close: () => void;
+  body: JSX.Element;
 }
 
-const ModalOverlay = ({ open, close }: iOverlay) => {
+const ModalOverlay = ({ open, close, body }: iOverlay) => {
   return (
-    <Wrapper>
-      <Modal
+    <>
+      <Dialog
         open={open}
         onClose={close}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        fullWidth
+        maxWidth={"md"}
+        scroll="paper"
+        sx={{ borderRadius: "8px" }}
       >
-        <TextContainer>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
-        </TextContainer>
-      </Modal>
-    </Wrapper>
+        <DialogTitle id="alert-dialog-title">Create new Task</DialogTitle>
+        <DialogContent>{body}</DialogContent>
+        <DialogActions>
+          <CancelButton onClick={close}>Cancel</CancelButton>
+          <SaveButton onClick={close} autoFocus>
+            Save
+          </SaveButton>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 };
 
